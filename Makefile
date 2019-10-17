@@ -5,7 +5,7 @@ LINKFLAGS= -lgtest
 
 SRC_DIR = src
 # Add a list of your source code files here
-SRCS = src/[^main]*.cpp
+SRCS =
 TEST_DIR = test
 
 GMOCK = /usr/src/gmock/gmock-all.cc -lpthread
@@ -51,7 +51,6 @@ $(PROGRAM):
 $(PROGRAM_TEST):
 	$(CXX) $(CXXFLAGS) -o $(PROGRAM_TEST) $(INCLUDE) $(TEST_DIR)/*.cpp $(SRCS) $(LINKFLAGS) $(GMOCK)
 	$(PROGRAM_TEST)
-
 
 memcheck-game: $(PROGRAM)
 	valgrind --tool=memcheck --leak-check=yes $(PROGRAM)
