@@ -1,0 +1,38 @@
+build-TM:
+   stage: build
+   script:
+      - make TM
+   artifacts:
+      paths:
+         - TM
+
+build-test:
+   stage: build
+   script:
+      - make TMTest
+   artifacts:
+      paths:
+         - TMTest
+
+test-TM:
+   stage: test
+   script:
+      - TMTest
+      - make memcheck-test
+      - make static
+      - make style
+
+pages:
+   stage: deploy
+   dependencies:
+      - test-TM
+   script:
+      - make coverage
+      - make docs
+   artifacts:
+      paths:
+         - coverage
+         - docs
+      expire_in: 14 days
+   only:
+      - master
